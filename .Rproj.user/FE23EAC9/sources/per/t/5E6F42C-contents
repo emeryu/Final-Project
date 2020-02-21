@@ -1,0 +1,84 @@
+
+################################################################################
+
+#                              PRACTICING TECHNIQUES                           #       #
+
+################################################################################
+
+############################# CREATING NETWORK GRAPHS ##########################
+
+#First create a sample dataset to work with
+#Here we created a dataset with 20 nodes, the probability of drawing an edge being 
+#0.2 with the graph being non-directed and not having any loops. 
+sample <-sample_gnp(60,.2,directed=FALSE, loops=FALSE)
+
+#observe data
+head(sample)
+
+#Visualize the data
+plot(sample)
+
+#This looks good but we can alter the colours, layout and other features to make 
+#it look better
+
+#Set seed so that the graph is reproduced the same each time we run it
+set.seed(3952)
+
+#Use the fruchterman.reingold layout to visualize the data 
+layout1<- layout.fruchterman.reingold(sample) #this is a spring network which 
+#reflects distances within network 
+
+#Node options - the V refers to vertices
+V(sample)$color<- "grey"
+V(sample)[degree(sample, mode = "in")>15]$color <- "orange"
+
+#Edge options - the E refers to edges (lines)
+E(sample)$color <- "grey" 
+
+#Now plot the new graph 
+plot(sample)
+
+#Notice that the nodes are quite large and overpower the lines. We can fix this. 
+
+#Fix the size of the nodes 
+V(sample)$size= degree(sample, mode= "in")/1.2
+
+#Now plot again with nodes size changes
+plot(sample)
+
+#Now we can plot our smample with arrow sizes that are small enough that they 
+#don't overpower the graph. 
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+
+
+############################# CONNECTIVIY AND POSITION #########################
+
+#This section includes outputs that describe the data that can depicted through 
+#numerical values as well as  
+
+
+#Density - how connected you are vs how connected you could be 
+graph.density(sample, loop=FALSE)
+
+#Average path length - larger path distance = less dense network 
+mean_distance(sample)
+
+
+#degree distribution - how connected you are to 1 person vs more people 
+degree_distribution(sample)
+Degree.dist <- degree.distribution(sample)
+
+#Make into a dataframe
+Degree.dist2 <- as.data.frame(Degree.dist)
+
+qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005, 
+       ylab= "Number of Connections", 
+       xlab= "Probability of Number of Connections")
+
+#clustering coefficients 
+# Transitivity measures how "cliquey" the network is. For example if "A" and "B" 
+# and "A" and "C" are connected, high transitifity would be if "B" and "C"
+# are connected. 
+transitivity (sample)
+
+

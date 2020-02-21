@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1582317578715.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3148323708",
+    "id" : "D4D045C9",
+    "lastKnownWriteTime" : 1582328761,
+    "last_content_update" : 1582328761987,
+    "path" : "~/Desktop/R Files/Final Project/3. Practicing techniques.R",
+    "project_path" : "3. Practicing techniques.R",
+    "properties" : {
+        "cursorPosition" : "54,13",
+        "scrollLine" : "32"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
