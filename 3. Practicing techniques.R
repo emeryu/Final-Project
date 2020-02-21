@@ -62,7 +62,7 @@ plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
 
 #Density - how connected you are vs how connected you could be 
 graph.density(sample, loop=FALSE)
-# we get a value of 0.19 which means that only about 19% of all possible connections 
+# We get a value of 0.19 which means that only about 19% of all possible connections 
 # exist. This is a fairly low density as density ranges from 0-1, with 1 being 
 # all possible connections exist.But this network is more dense (connected) that 
 # the original dataset we were working with. 
