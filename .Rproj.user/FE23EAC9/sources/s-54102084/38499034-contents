@@ -50,11 +50,14 @@ install.packages("ggplot2")
 
 #load libraries
 library(igraph)
-library (readr)
+library(readr)
 library(haven)
 library(ggplot2)
 
 #--------------------------------DATA DOWLOAD-----------------------------------
+#Set our working directory 
+
+working.dir <- getwd()
 
 # The raw data files used in the practicing techniques section of this analysis 
 # was found from a youtube channel
@@ -65,38 +68,39 @@ library(ggplot2)
 
 # Read the CSV's within the folder
 
-CN_edgelist<- read.csv("ColleaugueNetwork.csv")
-DN_edgelist<- read.csv("DiscussionNetwork.csv")
-CNA <- read.csv("ColleaugueAttributes.csv")
-DNA <- read_csv("DiscussionAttributes.csv")
-
-# The file of the raw data can be accessed with the following code.
-
-working.dir <- getwd()
-
-# This should be set to the working directory of
-# the "Final-Project--master" folder after downloading this repo. 
-
+CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
+DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
+CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
+DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
+#This next data set is our Songbird Social network
+SN <- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",
+                       sep="/"),format=c("graphml"))
+#This next data set is our Zebra Social network
+ZN <-read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",
+                      sep="/"),format=c("graphml"))
 
 #-----------------------------------WORKFLOW------------------------------------
 
 # In our working directory we created 4 pathways to different folders with 
 # specific outputs 
 
-#           - 1.Raw.Data  -> the path to this folder is: rd.path
-#                 (This folder contains a copy of the original downloaded
-#                   data set without changes.)
+#           - 1. Learn.tech  -> the path to this folder is: l.path
+#                 (This folder contains the outputs we produced from learning   
+#                  these social analysis techniques)
 #
-#           - 2.Clean.Data -> the path to this folder is: cd.path
-#                 (This folder contains  the cleaned data set.)
+#           - 2. Pract.tech -> the path to this folder is: p.path
+#                 (This folder contains the outputs we produced from our test 
+#                 dataset)
 #
-#           - 3.Analysis -> the path to this folder is: an.path
-#                 (This folder contains saved outputs of our anaylsis.)
+#           - 3. Test.tech -> the path to this folder is: t.path
+#                 (This folder contains the outputs we produced from our real 
+#                 dataset)
 #
-#           - 4.Graphs -> the path to this folder is: gr.path
-#                 (This folder contains all visualizations of data.)
+#           - 4. Data.sets -> th path to this folder is d.path
+#                 (This folder contains the raw data used in both our learning 
+#                 techniques and our testing techniques sections)
 
-output.folders <- c("1.Raw.Data","2.Clean.Data","3.Analysis","4.Graphs")
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets")
 
 # Check to see if the folders exist in the working directory and if they don't, 
 # use the following loop. 
@@ -113,26 +117,22 @@ for(i in 1:length(output.folders))
 
 # The following is a directory of the pathways to each of our output folders
 
-# Path to 1.Raw.Data folder
-rd.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
+# Path to 1.Learn.tech
+l.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
 
-# Path to 2.Clean.Data
-cd.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
+# Path to 2.Pract.tech
+p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
 
-# Path to 3.Analysis
-an.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
+# Path to 3.Test.tech
+t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
 
-# Path to 4.Graphs
-gr.path <- paste(working.dir,"/",output.folders[4], "/", sep="")
+d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
 
-# Now we can save our raw data into the raw data file. 
-
-write.csv(raw.data, paste(rd.path, "Raw.Data.csv"),
-          row.names = FALSE)
 
 #-----------Source the other scripts----------- 
 
-source("2. Data.Cleaning.R")
-source("3. Analysis.Graphs.R")
+source("1. LearningTechniques.R")
+source("3. PracticingTechniques.R")
+
 
 #################################END MAIN SCRIPT################################
