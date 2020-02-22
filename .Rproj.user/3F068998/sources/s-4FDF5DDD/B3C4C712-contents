@@ -50,7 +50,7 @@ install.packages("ggplot2")
 
 #load libraries
 library(igraph)
-library (readr)
+library(readr)
 library(haven)
 library(ggplot2)
 

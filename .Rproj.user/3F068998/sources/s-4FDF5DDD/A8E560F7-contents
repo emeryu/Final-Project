@@ -48,7 +48,13 @@ plot(sample)
 
 #Now we can plot our smample with arrow sizes that are small enough that they 
 #don't overpower the graph. 
+
 plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+
+#we can save this graph for future reference:
+pdf(file=paste(p.path,"Sample Degree Distribution.pdf",sep="/"))
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+dev.off()
 
 #We created this graph so that all the orange nodes had over 15 connections. By 
 #doing this, we are able to easily see which of the nodes have the most amount of 
@@ -88,6 +94,14 @@ qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005,
        ylab= "Number of Connections", 
        xlab= "Probability of Number of Connections")
 
+
+
+#we can save this for future reference
+pdf(file=paste(p.path,"Sample Degree Distribution.pdf",sep="/"))
+qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005, 
+       ylab= "Number of Connections", 
+       xlab= "Probability of Number of Connections")
+dev.off()
 #clustering coefficients 
 # Transitivity measures how "cliquey" the network is. For example if "A" and "B" 
 # and "A" and "C" are connected, high transitifity would be if "B" and "C"

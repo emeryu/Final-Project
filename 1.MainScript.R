@@ -50,7 +50,7 @@ install.packages("ggplot2")
 
 #load libraries
 library(igraph)
-library (readr)
+library(readr)
 library(haven)
 library(ggplot2)
 
@@ -122,15 +122,11 @@ t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
 
 d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
 
-# Now we can save our raw data into the raw data file. 
-
-write.csv(raw.data, paste(rd.path, "Raw.Data.csv"),
-          row.names = FALSE)
 
 #-----------Source the other scripts----------- 
 
 source("2. LearningTechniques.R")
 source("3. PracticingTechniques.R")
-source("4. TestingTechniques.R")
+
 
 #################################END MAIN SCRIPT################################
