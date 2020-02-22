@@ -59,23 +59,23 @@ library(ggplot2)
 
 working.dir <- getwd()
 
-# The raw data files used in the practicing techniques section of this analysis 
-# was found from a youtube channel
-#https://www.youtube.com/watch?v=XNw-DZFsFYA&list=PL1M5TsfDV6Vs7tnHGNgowEUwJW-
-#O8QVp5&index=4&fbclid=IwAR0tI0OQna4jte30rqZTZJLHdiiA49viGI2gB6xOnoJ1m_DwXfpT3zcZcpo
-#We downloaded the folder that comes along with the channel to work with the CSV's
-#This file is titled SSRI Network Tutorial Materials 
+# The following are the raw data files used in the practicing techniques section 
+# of this analysis which was found from a youtube channel
+#https://www.youtube.com/watch?v=XNw-DZFsFYA&list=PL1M5TsfDV6Vs7tnHGNgowEUwJW-O8QVp5&index=4&fbclid=IwAR0tI0OQna4jte30rqZTZJLHdiiA49viGI2gB6xOnoJ1m_DwXfpT3zcZcpo
 
-# Read the CSV's within the folder
-
-CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
-DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
+CN_edgelist <- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
+DN_edgelist <- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
 CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
 DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
-#This next data set is our Songbird Social network
+
+#The following are the datasets we used for the testing techniques section of 
+#this analysis. We retrieved this data from 
+#https://github.com/jdm286/Animal-Social-Structure-Network-Repository?fbclid=IwAR1_6eLcJ5Kivlzyn_E7b3cpY_NNSNTdC4M2hbW5Oqt0Juq9yhicKd5xtuw
+
+#This next dataset is our Songbird Social network
 SN <- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",
                        sep="/"),format=c("graphml"))
-#This next data set is our Zebra Social network
+#This next dataset is our Zebra Social network
 ZN <-read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",
                       sep="/"),format=c("graphml"))
 
@@ -131,8 +131,8 @@ d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
 
 #-----------Source the other scripts----------- 
 
-source("2. LearningTechniques.R")
-source("3. PracticingTechniques.R")
+source("1. LearningTechniques.R")
+source("2. PracticingTechniques.R")
 
 
 #################################END MAIN SCRIPT################################

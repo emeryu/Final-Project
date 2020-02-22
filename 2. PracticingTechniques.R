@@ -169,8 +169,6 @@ qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005,
        ylab= "Number of Connections", 
        xlab= "Probability of Number of Connections")
 
-
-
 #we can save this for future reference
 pdf(file=paste(p.path,"Sample Degree Distribution.pdf",sep="/"))
 qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005, 
