@@ -72,8 +72,10 @@ CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
 DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
 CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
 DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
+#This next data set is our Songbird Social network
 SN <- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",
                        sep="/"),format=c("graphml"))
+#This next data set is our Zebra Social network
 ZN <-read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",
                       sep="/"),format=c("graphml"))
 
