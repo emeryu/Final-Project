@@ -73,6 +73,10 @@ DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
 CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
 DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
 
+
+SN<- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",sep="/"),
+                format=c("graphml"))
+
 #-----------------------------------WORKFLOW------------------------------------
 
 # In our working directory we created 4 pathways to different folders with 
