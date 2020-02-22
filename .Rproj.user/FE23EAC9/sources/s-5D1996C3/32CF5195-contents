@@ -192,10 +192,36 @@ DDD <- degree.distribution(DN_graph2)
 
 DDD2 <- as.data.frame(DDD)
 
+degree_distribution(CN_graph2)
+CDD <- degree.distribution(CN_graph2)
+
+CDD2 <- as.data.frame(CDD)
+
+
 #plot the probability as a histogram 
 qplot (DDD, data=DDD2, geom = "histogram", binwidth= 0.001, 
        ylab= "Number of Connections", 
        xlab= "Probability of Number of Connections")
+
+qplot (CDD, data=CDD2, geom = "histogram", binwidth= 0.001, 
+       ylab= "Number of Connections", 
+       xlab= "Probability of Number of Connections")
+
+
+#We can save the pdfs of these histograms for future reference
+pdf(file=paste(l.path,"Discussion Network Degree Distribution.pdf",sep="/"))
+qplot (DDD, data=DDD2, geom = "histogram", binwidth= 0.001, 
+       ylab= "Number of Connections", 
+       xlab= "Probability of Number of Connections")
+dev.off()
+
+#and the colleague network DD
+pdf(file=paste(l.path,"Colleague Network Degree Distribution.pdf",sep="/"))
+qplot (CDD, data=CDD2, geom = "histogram", binwidth= 0.001, 
+       ylab= "Number of Connections", 
+       xlab= "Probability of Number of Connections")
+dev.off()
+
 
 #Clustering coefficients can be broken down into global custering coefficient (which 
 # is known as transitivity). Transitivity is calculated by dividing the number of 
@@ -264,5 +290,14 @@ E(DN_graph2)$color <- "grey"
 
 plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
 
+#We will write each of these graphs in as a PDF to save our learned result
+pdf(file=paste(l.path,"Discussion Network.pdf",sep="/"))
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+dev.off()
+
+#And again for our colleague network
+pdf(file=paste(l.path,"Colleague Network.pdf",sep="/"))
+plot(CN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+dev.off()
 
 ############################### END LEARNING TECHNIQUES ######################

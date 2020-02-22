@@ -21,9 +21,9 @@ plot(sample)
 #This looks good but we can alter the colours, layout and other features to make 
 #it look better
 
+#Layout options
 #Set seed so that the graph is reproduced the same each time we run it
 set.seed(3952)
-
 #Use the fruchterman.reingold layout to visualize the data 
 layout1<- layout.fruchterman.reingold(sample) #this is a spring network which 
 #reflects distances within network 
@@ -40,6 +40,17 @@ plot(sample)
 
 #Notice that the nodes are quite large and overpower the lines. We can fix this. 
 
+#Layout options
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(sample) 
+
+#Node options
+V(sample)$color<- "grey"
+V(sample)[degree(sample, mode = "in")>15]$color <- "orange"
+
+#Edge options
+E(sample)$color <- "grey" 
+
 #Fix the size of the nodes 
 V(sample)$size= degree(sample, mode= "in")/1.2
 
@@ -48,12 +59,82 @@ plot(sample)
 
 #Now we can plot our smample with arrow sizes that are small enough that they 
 #don't overpower the graph. 
+
+#Layout options
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(sample) 
+
+#Node options
+V(sample)$color<- "grey"
+V(sample)[degree(sample, mode = "in")>15]$color <- "orange"
+#Node size
+V(sample)$size= degree(sample, mode= "in")/1.2
+
+#Edge options
+E(sample)$color <- "grey" 
+
+#Now plot the new graph with arrow sizes changes 
 plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+
+#we can save this graph for future reference:
+pdf(file=paste(p.path,"Sample IN Network.pdf",sep="/"))
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+dev.off()
+
+#The above plot was looking at the network with an "in" centrality meaning that 
+#it is how many people they nominated
+
+#Now we can plot the network with an "out" centrality meaning that it is 
+#how many people nominated them
+
+#Layout options
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(sample) 
+
+#Node options
+V(sample)$color<- "grey"
+V(sample)[degree(sample, mode = "out")>15]$color <- "orange"
+#Node size
+V(sample)$size= degree(sample, mode= "in")/1.2
+
+#Edge options
+E(sample)$color <- "grey" 
+
+#Now plot to see the difference between "in" and "out" centrality 
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+
+#we can save this graph for future reference:
+pdf(file=paste(p.path,"Sample OUT Network.pdf",sep="/"))
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+dev.off()
+
+#Now we can plot the network with an "all" centrality meaning that it is 
+#how many people nominated them
+
+#Layout options
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(sample) 
+
+#Node options
+V(sample)$color<- "grey"
+V(sample)[degree(sample, mode = "all")>15]$color <- "orange"
+#Node size
+V(sample)$size= degree(sample, mode= "in")/1.2
+
+#Edge options
+E(sample)$color <- "grey" 
+
+#Now plot to see the differnce between "in", "out" and "all" centrality 
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+
+#we can save this graph for future reference:
+pdf(file=paste(p.path,"Sample ALL Network.pdf",sep="/"))
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+dev.off()
 
 #We created this graph so that all the orange nodes had over 15 connections. By 
 #doing this, we are able to easily see which of the nodes have the most amount of 
-#connections 
-
+#connections through looking at the colours as well as the size of the nodes. 
 
 ############################# CONNECTIVIY AND POSITION #########################
 
@@ -88,6 +169,14 @@ qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005,
        ylab= "Number of Connections", 
        xlab= "Probability of Number of Connections")
 
+
+
+#we can save this for future reference
+pdf(file=paste(p.path,"Sample Degree Distribution.pdf",sep="/"))
+qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005, 
+       ylab= "Number of Connections", 
+       xlab= "Probability of Number of Connections")
+dev.off()
 #clustering coefficients 
 # Transitivity measures how "cliquey" the network is. For example if "A" and "B" 
 # and "A" and "C" are connected, high transitifity would be if "B" and "C"
