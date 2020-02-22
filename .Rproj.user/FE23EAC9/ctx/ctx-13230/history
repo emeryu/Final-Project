@@ -1,0 +1,512 @@
+CN_edgelist<- read.csv("ColleaugueNetwork.csv")
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+DN_edgelist<- read.csv("DiscussionNetwork.csv")
+DN_graph= graph.data.frame(DN_edgelist, directed =TRUE)
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech")
+for(i in 1:length(output.folders))
+if(file.exists(output.folders[i]) == FALSE)
+dir.create(output.folders[i])
+path <- paste(working.dir,"/",output.folders[1], "/", sep="")
+# Path to 2.Pract.tech
+p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
+# Path to 3.Test.tech
+t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
+rm (path)
+l.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
+# Path to 2.Pract.tech
+p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
+# Path to 3.Test.tech
+t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets")
+for(i in 1:length(output.folders))
+if(file.exists(output.folders[i]) == FALSE)
+dir.create(output.folders[i])
+d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
+CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/")
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/")
+CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
+CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
+DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
+CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
+DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets")
+for(i in 1:length(output.folders))
+if(file.exists(output.folders[i]) == FALSE)
+dir.create(output.folders[i])
+l.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
+# Path to 2.Pract.tech
+p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
+# Path to 3.Test.tech
+t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
+d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
+source("2. LearningTechniques.R")
+source("3. PracticingTechniques.R")
+source("4. TestingTechniques.R")
+source("2. LearningTechniques.R")
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+CN_edgelist
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+install.packages("igraph")
+install.packages("readr")
+install.packages("haven")
+install.packages("ggplot2")
+#---------------------------------LIBRARIES-------------------------------------
+# Load the packages in the libraries
+#load libraries
+library(igraph)
+library (readr)
+library(haven)
+library(ggplot2)
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+source("2. LearningTechniques.R")
+source("3. PracticingTechniques.R")
+source("4. TestingTechniques.R")
+CN_edgelist<- read.csv("ColleaugueNetwork.csv")
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+CN_edgelist
+DN_edgelist<- read.csv("DiscussionNetwork.csv")
+DN_graph= graph.data.frame(DN_edgelist, directed =TRUE)
+#set seed
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(CN_graph) #using a spring network reflects
+#distances within network
+#node options
+V(CN_graph)$color<- "grey"
+V(CN_graph)[degree(CN_graph, mode = "in")>8]$color <- "yellow"
+#edge options
+E(CN_graph)$color <- "grey"
+#plotting
+plot(CN_graph)
+#nodes again
+#Node size
+V(CN_graph)$size= degree(CN_graph, mode= "in")/5
+#Node colour
+V(CN_graph)$color<- "grey"
+V(CN_graph)[degree(CN_graph, mode = "in")>8]$color <- "yellow"
+#edge colour
+E(CN_graph)$color <- "grey"
+plot(CN_graph)
+#fixing arrow head
+plot(CN_graph, edge.arrow.size=0.25, edge.arrow.mode= "-")
+#getting rid of loops
+CN_graph2 <- simplify(CN_graph, remove.multiple = TRUE, remove.loops = TRUE)
+layout1 <- layout.fruchterman.reingold(CN_graph2)
+#Node size
+V(CN_graph2)$size= degree(CN_graph2, mode= "in")/5
+#Node colour
+V(CN_graph2)$color<- "grey"
+V(CN_graph2)[degree(CN_graph2, mode = "in")>8]$color <- "yellow"
+#edge colour
+E(CN_graph2)$color <- "grey"
+#plotting graph without loops
+plot(CN_graph2, edge.arrow.size=0.25, edge.arrow.mode= "-")
+#Load colleaugue attributess
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(CN_graph2, niter=500)
+#Node colour...
+V(CN_graph2)$color <- "grey"
+V(CN_graph2)[degree(CN_graph, mode="in")>8]$color <- "yellow"
+V(CN_graph2)$size=degree(CN_graph, mode = "in")/5
+V(CN_graph2)$color <- ifelse(CNA[V(CN_graph2), 2] == "Researcher", "blue", "red")
+#edge colour
+E(CN_graph2)$color <- "grey"
+plot(CN_graph2, edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#DISCUSSION NETWORK
+DN_graph2 <- simplify(DN_graph, remove.multiple = TRUE, remove.loops = TRUE)
+#Load the discussion networks attributes
+DNA <- read_csv("DiscussionAttributes.csv")
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter=500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "in")/5
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#try with a different layout
+set.seed(3256)
+layout1 <- layout_with_kk(DN_graph2)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "in")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#CONNECTIVIY AND POSITION
+#Density - how connected you are vs how connected you could be
+graph.density(DN_graph2, loop=FALSE)
+graph.density(CN_graph2, loop= FALSE)
+#average path length - larger path distance = less dense network
+mean_distance(DN_graph2)
+mean_distance(CN_graph2)
+#degree distribution - how connected you are to 1 person vs more people
+degree_distribution(DN_graph2)
+DDD <- degree.distribution(DN_graph2)
+DDD2 <- as.data.frame(DDD)
+qplot (DDD, data=DDD2, geom = "histogram", binwidth= 0.001,
+ylab= "Number of Connections",
+xlab= "Probability of Number of Connections")
+#clustering coefficients
+transitivity (DN_graph2)
+transitivity (CN_graph2)
+#create an object to use later
+DNT<- transitivity (DN_graph2)
+CNT<- transitivity (CN_graph2)
+#postitional features
+#degree: in, out, all centrality
+DOD<- degree(DN_graph2, mode= "out")
+DOD <- as.data.frame(DOD)
+DID<- degree(DN_graph2, mode= "in")
+DID <- as.data.frame(DID)
+#visuale to understand positionality with "in"
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter= 500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "in")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#visualize with "out"
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter= 500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "out")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#visualize with "all"
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter= 500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "all")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+CN_edgelist<- read.csv("ColleaugueNetwork.csv")
+View(CNA)
+View(CNA)
+#                             LEARNING TECHNIQUES                              #
+################################################################################
+#-------- FORMATTING DATA FOR GRAPH CREATION ---------
+#We have our data depicting our colleaugue networks loaded on our mainscript.
+#We now want to create a data frame with this data to create our graphs.
+CN_graph= graph.data.frame(CN_edgelist, directed =TRUE)
+#Now do the same and create a data frame from the discussion networks data.
+DN_graph= graph.data.frame(DN_edgelist, directed =TRUE)
+#---------- CREATING NETWORK GRAPHS -----------
+#In this we learn how to set the seed, and change the properties of the network
+#graphs
+#Colleaugue Networks 1st try: Plotting with colour
+#Layout options
+#Set seed
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(CN_graph) #using a spring network reflects
+#distances within network
+#Node options: colour
+V(CN_graph)$color<- "grey"
+V(CN_graph)[degree(CN_graph, mode = "in")>8]$color <- "yellow"
+#Edge options: colour
+E(CN_graph)$color <- "grey"
+#Plot the network graph
+plot(CN_graph)
+#Colleaugue networks 2nd try: We can alter the size of the nodes to best fit the
+#graph
+#Layout options
+#Set seed
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(CN_graph) #using a spring network reflects
+#distances within network
+#Node colour
+V(CN_graph)$color<- "grey"
+V(CN_graph)[degree(CN_graph, mode = "in")>8]$color <- "yellow"
+#Edge colour
+E(CN_graph)$color <- "grey"
+#Node options: size
+V(CN_graph)$size= degree(CN_graph, mode= "in")/5
+#Now plot the graph to see with the nodes being a different size
+plot(CN_graph)
+#Colleaugue networks 3rd try: We still have larger arrows that are distracting
+# So we can fix the size of the arrows
+#Set seed
+set.seed(3952)
+layout1<- layout.fruchterman.reingold(CN_graph) #using a spring network reflects
+#distances within network
+#Node options: colour
+V(CN_graph)$color<- "grey"
+V(CN_graph)[degree(CN_graph, mode = "in")>8]$color <- "yellow"
+#Edge options: colour
+E(CN_graph)$color <- "grey"
+#Node options: size
+V(CN_graph)$size= degree(CN_graph, mode= "in")/5
+#Fixing arrow size
+plot(CN_graph, edge.arrow.size=0.25, edge.arrow.mode= "-")
+#Colleaugue networks try 4: In this dataset there are loops which are where a
+# node is able to "nominate" themselves. In this case we don't need these loops.
+#Getting rid of loops
+CN_graph2 <- simplify(CN_graph, remove.multiple = TRUE, remove.loops = TRUE)
+#layout options
+set.seed(3952)
+layout1 <- layout.fruchterman.reingold(CN_graph2)
+#Node size
+V(CN_graph2)$size= degree(CN_graph2, mode= "in")/5
+#Node colour
+V(CN_graph2)$color<- "grey"
+V(CN_graph2)[degree(CN_graph2, mode = "in")>8]$color <- "yellow"
+#edge colour
+E(CN_graph2)$color <- "grey"
+#Plotting graph without loops
+plot(CN_graph2, edge.arrow.size=0.25, edge.arrow.mode= "-")
+#Colleague Network 5th Try: Working with the Colleaugues Network Attributes
+#this allows us to look at graduate students and researchers.
+#Layout options
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(CN_graph2, niter=500)
+#Node colour...
+V(CN_graph2)$color <- "grey"
+V(CN_graph2)[degree(CN_graph, mode="in")>8]$color <- "yellow"
+V(CN_graph2)$size=degree(CN_graph, mode = "in")/5
+V(CN_graph2)$color <- ifelse(CNA[V(CN_graph2), 2] == "Researcher", "blue", "red")
+#edge colour
+E(CN_graph2)$color <- "grey"
+plot(CN_graph2, edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#DISCUSSION NETWORK
+#Discussion network 1st try:
+#Create a dataframe with the data.
+DN_graph2 <- simplify(DN_graph, remove.multiple = TRUE, remove.loops = TRUE)
+#Now we are going to use the discussion networks attributes
+#Layout options
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter=500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "in")/5
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+#Plot this first graph
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#Discussion network 2nd try: Try with a different layout
+#Layout options
+set.seed(3256)
+layout1 <- layout_with_kk(DN_graph2)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "in")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+#Now plot with this layout to see the difference.
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+plot(CN_graph, edge.arrow.size=0.25, edge.arrow.mode= "-")
+graph.density(DN_graph2, loop=FALSE)
+graph.density(CN_graph2, loop= FALSE)
+DN_graph2 <- simplify(DN_graph, remove.multiple = TRUE, remove.loops = TRUE)
+plot(CN_graph2, edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+mean_distance(DN_graph2)
+mean_distance(CN_graph2)
+degree_distribution(DN_graph2)
+DDD <- degree.distribution(DN_graph2)
+DDD2 <- as.data.frame(DDD)
+qplot (DDD, data=DDD2, geom = "histogram", binwidth= 0.001,
+ylab= "Number of Connections",
+xlab= "Probability of Number of Connections")
+transitivity (DN_graph2)
+transitivity (CN_graph2)
+DNT<- transitivity (DN_graph2)
+CNT<- transitivity (CN_graph2)
+DOD<- degree(DN_graph2, mode= "out")
+DOD <- as.data.frame(DOD)
+DOD
+degree(DN_graph2, mode= "out")
+DOD<- degree(DN_graph2, mode= "out")
+DOD <- as.data.frame(DOD)
+DID<- degree(DN_graph2, mode= "in")
+DID <- as.data.frame(DID)
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter= 500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "in")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#visualize with "out"
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter= 500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "out")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+#visualize with "all"
+set.seed(3256)
+layout1 <- layout.fruchterman.reingold(DN_graph2, niter= 500)
+#nodes size and colour
+V(DN_graph2)$size=degree(DN_graph, mode = "all")/5 #emphasizes distances
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+#Edge colour
+E(DN_graph2)$color <- "grey"
+plot(DN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
+################################################################################
+#                              PRACTICING TECHNIQUES                           #
+################################################################################
+############################# CREATING NETWORK GRAPHS ##########################
+#First create a sample dataset to work with
+#Here we created a dataset with 20 nodes, the probability of drawing an edge being
+#0.2 with the graph being non-directed and not having any loops.
+sample <-sample_gnp(60,.2,directed=FALSE, loops=FALSE)
+#observe data
+head(sample)
+#Visualize the data
+plot(sample)
+#This looks good but we can alter the colours, layout and other features to make
+#it look better
+#Set seed so that the graph is reproduced the same each time we run it
+set.seed(3952)
+#Use the fruchterman.reingold layout to visualize the data
+layout1<- layout.fruchterman.reingold(sample) #this is a spring network which
+#reflects distances within network
+#Node options - the V refers to vertices
+V(sample)$color<- "grey"
+V(sample)[degree(sample, mode = "in")>15]$color <- "orange"
+#Edge options - the E refers to edges (lines)
+E(sample)$color <- "grey"
+#Now plot the new graph
+plot(sample)
+#Notice that the nodes are quite large and overpower the lines. We can fix this.
+#Fix the size of the nodes
+V(sample)$size= degree(sample, mode= "in")/1.2
+#Now plot again with nodes size changes
+plot(sample)
+#Now we can plot our smample with arrow sizes that are small enough that they
+#don't overpower the graph.
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+graph.density(sample, loop=FALSE)
+mean_distance(sample)
+mean_distance(sample)
+degree_distribution(sample)
+Degree.dist <- degree.distribution(sample)
+Degree.dist2 <- as.data.frame(Degree.dist)
+qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005,
+ylab= "Number of Connections",
+xlab= "Probability of Number of Connections")
+transitivity (sample)
+plot(sample, edge.arrow.size=0.25, edge.arrow.mode= "-")
+SN<- read_graph(paste(working.dir,"/","Songbird-Network/weighted_network_social_songbird.graphml",sep=""),
+format=c("graphml"))
+SN<- read_graph(paste(working.dir,"/",d.path,"/weighted_network_social_songbird.graphml",sep=""),
+format=c("graphml"))
+SN<- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",sep="/"),
+format=c("graphml"))
+SN<- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",sep="/"),
+format=c("graphml"))
+SN<- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",sep="/"),
+format=c("graphml"))
+ZN<- read_graph(paste(d.paht,"UNweighted_zebra_interaction.graphml",sep = "/"),
+format=c("graphml"))
+ZN<- read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",sep = "/"),
+format=c("graphml"))
+################################################################################
+#                              MAIN SCRIPT                                     #
+################################################################################
+#----------------------------TABLE OF CONTENTS----------------------------------
+# - Overview
+# - Packages downloaded
+# - Libraries
+# - Data Download
+# - Workflow
+# - Source the rest of the code
+################################################################################
+#---------------------------------OVERVIEW--------------------------------------
+#The following contents within this main directory include the packages,
+#libraries, dataset and the workflow that is used in this analysis. For the
+#purpose of this analysis the scripts should be run in the folling order to gain
+#replicatory results:
+#    1. MainScript:(This included data organization with the overview of the
+#                   workflow used in this project)
+#
+#    2. LearningTechniques: (This includes the dataset we used and the analyses
+#                           that we ran to produce the graphs and numerical values)
+#
+#
+#    3. PracticingTechniques: (This includes our creation of our own dataset and
+#                              the analyses we used on this dataset)
+#
+#    4. TestingTechniques: (This includes the analyses we ran on a dataset
+#                           provided to us)
+#------------------------------PACKAGE DOWNLOAD---------------------------------
+# This is a list of the package used for these analyses
+install.packages("igraph")
+install.packages("readr")
+install.packages("haven")
+install.packages("ggplot2")
+#---------------------------------LIBRARIES-------------------------------------
+# Load the packages in the libraries
+#load libraries
+library(igraph)
+library (readr)
+library(haven)
+library(ggplot2)
+#--------------------------------DATA DOWLOAD-----------------------------------
+#Set our working directory
+working.dir <- getwd()
+# The raw data files used in the practicing techniques section of this analysis
+# was found from a youtube channel
+#https://www.youtube.com/watch?v=XNw-DZFsFYA&list=PL1M5TsfDV6Vs7tnHGNgowEUwJW-O8QVp5&index=4&fbclid=IwAR0tI0OQna4jte30rqZTZJLHdiiA49viGI2gB6xOnoJ1m_DwXfpT3zcZcpo
+#We downloaded the folder that comes along with the channel to work with the CSV's
+#This file is titled SSRI Network Tutorial Materials
+# Read the CSV's within the folder
+CN_edgelist<- read.csv(paste(d.path,"ColleaugueNetwork.csv", sep = "/"))
+DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
+CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
+DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
+#The data we are going to use for our testing techniques was found at
+#https://github.com/jdm286/Animal-Social-Structure-Network-Repository?fbclid=IwAR2C95NiJURf0g2HRkXtZc-skC7S6HxcdGkwPB5z9nwg9MHrG5n7WppjXTI
+# Read the graphs within the folder
+SN<- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",sep="/"),
+format=c("graphml"))
+ZN<- read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",sep = "/"),
+format=c("graphml"))
+#-----------------------------------WORKFLOW------------------------------------
+# In our working directory we created 4 pathways to different folders with
+# specific outputs
+#           - 1. Learn.tech  -> the path to this folder is: l.path
+#                 (This folder contains the outputs we produced from learning
+#                  these social analysis techniques)
+#
+#           - 2. Pract.tech -> the path to this folder is: p.path
+#                 (This folder contains the outputs we produced from our test
+#                 dataset)
+#
+#           - 3. Test.tech -> the path to this folder is: t.path
+#                 (This folder contains the outputs we produced from our real
+#                 dataset)
+#
+#           - 4. Data.sets -> th path to this folder is d.path
+#                 (This folder contains the raw data used in both our learning
+#                 techniques and our testing techniques sections)
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets")
+# Check to see if the folders exist in the working directory and if they don't,
+# use the following loop.
+# The following loop checks the output.folders list and checks to see
+# if the folders exist in the working directory. If they don't it will create
+# them.
+# Make the folders using this loop code
+for(i in 1:length(output.folders))
+if(file.exists(output.folders[i]) == FALSE)
+dir.create(output.folders[i])
+#-------- Pathways----------
+# The following is a directory of the pathways to each of our output folders
+# Path to 1.Learn.tech
+l.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
+# Path to 2.Pract.tech
+p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
+# Path to 3.Test.tech
+t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
+d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
+# Now we can save our raw data into the raw data file.
+write.csv(raw.data, paste(rd.path, "Raw.Data.csv"),
+row.names = FALSE)

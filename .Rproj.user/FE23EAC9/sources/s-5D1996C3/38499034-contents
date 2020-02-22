@@ -61,8 +61,7 @@ working.dir <- getwd()
 
 # The raw data files used in the practicing techniques section of this analysis 
 # was found from a youtube channel
-#https://www.youtube.com/watch?v=XNw-DZFsFYA&list=PL1M5TsfDV6Vs7tnHGNgowEUwJW-
-#O8QVp5&index=4&fbclid=IwAR0tI0OQna4jte30rqZTZJLHdiiA49viGI2gB6xOnoJ1m_DwXfpT3zcZcpo
+#https://www.youtube.com/watch?v=XNw-DZFsFYA&list=PL1M5TsfDV6Vs7tnHGNgowEUwJW-O8QVp5&index=4&fbclid=IwAR0tI0OQna4jte30rqZTZJLHdiiA49viGI2gB6xOnoJ1m_DwXfpT3zcZcpo
 #We downloaded the folder that comes along with the channel to work with the CSV's
 #This file is titled SSRI Network Tutorial Materials 
 
@@ -73,8 +72,15 @@ DN_edgelist<- read.csv(paste(d.path,"DiscussionNetwork.csv", sep = "/"))
 CNA <- read.csv(paste(d.path,"ColleaugueAttributes.csv", sep = "/"))
 DNA <- read.csv(paste(d.path,"DiscussionAttributes.csv", sep = "/"))
 
+#The data we are going to use for our testing techniques was found at 
+#https://github.com/jdm286/Animal-Social-Structure-Network-Repository?fbclid=IwAR2C95NiJURf0g2HRkXtZc-skC7S6HxcdGkwPB5z9nwg9MHrG5n7WppjXTI
+
+# Read the graphs within the folder  
 
 SN<- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",sep="/"),
+                format=c("graphml"))
+
+ZN<- read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",sep = "/"),
                 format=c("graphml"))
 
 #-----------------------------------WORKFLOW------------------------------------
@@ -126,15 +132,11 @@ t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
 
 d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
 
-# Now we can save our raw data into the raw data file. 
-
-write.csv(raw.data, paste(rd.path, "Raw.Data.csv"),
-          row.names = FALSE)
 
 #-----------Source the other scripts----------- 
 
 source("2. LearningTechniques.R")
 source("3. PracticingTechniques.R")
-source("4. TestingTechniques.R")
+
 
 #################################END MAIN SCRIPT################################
