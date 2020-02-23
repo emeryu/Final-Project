@@ -185,8 +185,8 @@ mean_distance(CN_graph2)
 # For this one, there is an average path distance of 2.54 which means that this 
 # network is also quite connected which was graphically represented earlier. 
 
-#Degree distribution - Plotting the probability that any certain node has that number 
-# of connections (Degree) - how connected you are to 1 person vs more people 
+#Degree distribution - Plotting the probability that any certain node has that 
+#number of connections (Degree) - how connected you are to 1 person vs more people 
 degree_distribution(DN_graph2)
 DDD <- degree.distribution(DN_graph2)
 
@@ -300,4 +300,138 @@ pdf(file=paste(l.path,"Colleague Network.pdf",sep="/"))
 plot(CN_graph2,edge.arrow.size= 0.25, edge.arrow.mode= "-", vertex.label= NA)
 dev.off()
 
-############################### END LEARNING TECHNIQUES ######################
+#Closeness centrality - how close any one node is to any other nodes 
+#Do it for "in" - the ties that are receiving
+closeness(DN_graph2, mode = "in")
+
+#Make a dataframe
+DIC <-closeness(DN_graph2, mode = "in")
+DIC <- as.data.frame(DIC)
+
+#look at the values (the highest and lowest values) from the data frame to see 
+#whether there is a lot of closeness or not. Our values are do not vary a lot so 
+#we would say that there is not a lot of variation in closeness centrality 
+
+#Do it for "out" - these are the ties people are sending 
+closeness(DN_graph2, mode = "out")
+
+#Make a dataframe
+DOC <-closeness(DN_graph2, mode = "out")
+DOC <- as.data.frame(DOC)
+
+#When looking at the vlaues in the dataframe, we see less variation. This means 
+#that there is not one person that is able to uniquely spread something (info) 
+#more than others 
+
+#Now we can visualize this in a graph with "in" centrality 
+
+#First set the layout
+set.seed(3952)  # set seed to make the layout reproducible
+layout1 <- layout.fruchterman.reingold(DN_graph2,niter=500)
+#Node or Vetex Options: Size and Color
+V(DN_graph2)$size=closeness(DN_graph, mode = "in")/.05 #divide by 5 to keep the high
+#in-degree nodes from being too large.
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+
+#Edge Options: Color
+E(DN_graph2)$color <- "grey"
+
+#Now we can plot with Specific arrow size and get rid of arrow heads
+#We are letting the color and the size of the node indicate the directed nature 
+#of the graph
+plot(DN_graph2, edge.arrow.size=0.25,edge.arrow.mode = "-", vertex.label = NA)
+
+
+# We can do the same for the "out" graph 
+set.seed(3952)  # set seed to make the layout reproducible
+layout1 <- layout.fruchterman.reingold(DN_graph2,niter=500)
+#Node or Vetex Options: Size and Color
+V(DN_graph2)$size=closeness(DN_graph, mode = "out")/.05 #divide by 5 to keep the high
+#in-degree nodes from being too large.
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+
+#Edge Options: Color
+E(DN_graph2)$color <- "grey"
+
+#Plotting, Now Specifying an arrow size and getting rid of arrow heads
+#We are letting the color and the size of the node indicate the directed nature 
+#of the graph
+plot(DN_graph2, edge.arrow.size=0.25,edge.arrow.mode = "-", vertex.label = NA)
+
+#Betweeness centrality - how often a specific node is used a bridge between any 
+#other pair
+
+DNB <- betweenness(DN_graph2)
+
+#Make a dataframe to look at the variation 
+DNB <- as.data.frame(DNB)
+#We have values that are 0 and values that are over 1000
+
+#Now we can graph this 
+
+#Layout Options
+set.seed(3952)  # set seed to make the layout reproducible
+layout1 <- layout.fruchterman.reingold(DN_graph2,niter=500)
+#Node or Vetex Options: Size and Color
+V(DN_graph2)$size=betweenness(DN_graph)/200 #divide by 200 to keep the high 
+#in-degree nodes from bing super large 
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+
+#Edge Options: Color
+E(DN_graph2)$color <- "grey"
+
+#Plotting, Now Specifying an arrow size and getting rid of arrow heads
+#We are letting the color and the size of the node indicate the directed nature 
+#of the graph
+plot(DN_graph2, edge.arrow.size=0.25,edge.arrow.mode = "-", vertex.label = NA)
+#Here we see that there are the are three high betweeness nodes that are the 
+#bridges to many other nodes within the network. 
+
+#Eigen Vector Centrality - looks at the importance of connected people being 
+#connected to other highly connected people. Assumption = that being connected to 
+#other highly connected people is good. Sometimes it is, sometimes it is not. 
+
+#calculating eigen values which are a manipulation matrix. 
+
+eigen_centrality(DN_graph2)
+DN_EC <- eigen_centrality(DN_graph2)
+
+DN_EC <- as.data.frame(DN_EC)
+
+# look at dataframe to see the variation between eigen values
+
+#Layout Options
+set.seed(3952)  # set seed to make the layout reproducible
+layout1 <- layout.fruchterman.reingold(DN_graph2,niter=500)
+#Node or Vetex Options: Size and Color
+V(DN_graph2)$size=eigen_centrality(DN_graph)/5 #because of the wide range
+V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
+
+#Edge Options: Color
+E(DN_graph2)$color <- "grey"
+
+#Plotting, Now Specifying an arrow size and getting rid of arrow heads
+#We are letting the color and the size of the node indicate the directed nature of 
+#the graph
+plot(DN_graph2, edge.arrow.size=0.25,edge.arrow.mode = "-", vertex.label = NA)
+
+#We see that there are 3 nodes that connect highly connected people and then some 
+#other nodes that also play a role in connecting highly connected people. These 
+#people are different than the nodes with high betweeness. 
+
+#Edge-Betweeness: Girvan-Newman - this looks at the edge that connects the most 
+#amount of people and then it removes those edges and looks at the nodes that are 
+#left. You continue till you have no more edges and from that tou can understand 
+#what are the groups of people that have more connections to themselves then other
+#people in the network. 
+
+GNC <- cluster_edge_betweenness(DN_graph2, weights = NULL)
+V(DN_graph2)$color <-membership(GNC) #This sets a specific colour for the nodes 
+#by different community
+DN_graph2$palette <- diverging_pal(length(GNC)) #This sets a specific color pallette 
+plot(DN_graph2, edge.arrow.size=0.25,edge.arrow.mode = "-", vertex.label = NA)
+#The colour shows the most amount of information. The nodes that have a high Girvan
+#Newman score are not the same colour meaning that the nodes are not part of the 
+#same community. 
+
+############################### END LEARNING TECHNIQUES ########################
