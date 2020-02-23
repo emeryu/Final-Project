@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1582489323625.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1281981764",
+    "id" : "5374EC5A",
+    "lastKnownWriteTime" : 1582496152,
+    "last_content_update" : 1582496152073,
+    "path" : "~/Desktop/R Files/Final Project/Test.Tech2.R",
+    "project_path" : "Test.Tech2.R",
+    "properties" : {
+        "cursorPosition" : "219,27",
+        "scrollLine" : "109",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -43,6 +43,7 @@ install.packages("igraph")
 install.packages("readr")
 install.packages("haven")
 install.packages("ggplot2")
+install.packages("dplyr")
 
 #---------------------------------LIBRARIES-------------------------------------
 
@@ -53,6 +54,7 @@ library(igraph)
 library(readr)
 library(haven)
 library(ggplot2)
+library(dplyr)
 
 #--------------------------------DATA DOWLOAD-----------------------------------
 #Set our working directory 
