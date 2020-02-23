@@ -300,25 +300,44 @@ dev.off()
 
 
 ################  attempts to do this with for loops and functions #####################
+#This was simpler in R than we thought it might be, however we used a lot 
+#of farmer coding. Out of curiosity I started making functions to see
+#if we can do this more simply.
 
-give.nodelists<-function(test,network1,network2,lengthnet1,lengthnet2){
+#We started by making a function that returns the relevant nodelist
+give.nodelists<-function(test,network1,lengthnet1){
   layout.t1<-layout.auto(network1)
-  layout.t2<-layout.auto(network2)
   temp.dataframe1<-test(network1)
-  temp.dataframe2<-test(network2)
   temp.dataframe1<-as.data.frame(temp.dataframe1)
-  temp.dataframe2<-as.data.frame(temp.dataframe2)
-  temp.dataframe1$Nodelist<-(1:lengthnet1)
-  temp.dataframe2$Nodelist<-(1:lengthnet2)
-  top1.t.1<-temp.dataframe1%>%top_n(1,temp.dataframe1)
-  top1.t.2<-temp.dataframe2%>%top_n(1,temp.dataframe2)
-  top3.t.1<-temp.dataframe1%>%top_frac(3/100,temp.dataframe1)
-  top3.t.2<-temp.dataframe2%>%top_frac(3/100,temp.dataframe2)
-  top10.t.1<-temp.dataframe1%>%top_frac(1/10,temp.dataframe1)
-  top10.t.2<-temp.dataframe2%>%top_frac(1/10,temp.dataframe2)  
-  result<- matrix(,nrow=lengthnet1,ncol=6)
-  result<-cbind(top1.t.1,top1.t.2,top3.t.1,top3.t.2,top10.t.1,top10.t.2)
+  temp.dataframe1$NodeID<-(1:lengthnet1)
+  temp.dataframe1%>%arrange(desc(temp.dataframe1))
+  return(temp.dataframe1)
   
 }
+#It works!
+ZND<-give.nodelists(betweenness,ZN,27)
+SND<-give.nodelists(betweenness,SN,117)
 
-give.nodelists(betweenness,ZN,SN,27,117)
+
+#then we made a function that extracts the relevant values from that list
+top.node<-function(relevant.nodelist,n){
+  top1.t.1<-relevant.nodelist%>%top_n(n,relevant.nodelist[,1])
+}
+#it works!
+highlight<-top.node(SND,1)
+
+#and the big question
+#Can I make a function that does it all??
+identify.targets<-function(network,test,node.ID.column.number,
+                           length,number.of.targets,seed){
+  long.targets<-give.nodelists(test,network,length)
+  final.targets<-top.node(long.targets,number.of.targets)
+  layout.t2<-layout.auto(network)
+  set.seed(seed)
+  V(network)$color="grey"
+  V(network)[final.targets[,node.ID.column.number]]$color<-"yellow"
+  plot(network)
+}
+
+#YES I CAN!!!
+identify.targets(SN,betweenness,2,117,25,34554)
