@@ -53,6 +53,7 @@ library(igraph)
 library(readr)
 library(haven)
 library(ggplot2)
+library(dplyr)
 
 #--------------------------------DATA DOWLOAD-----------------------------------
 #Set our working directory 
