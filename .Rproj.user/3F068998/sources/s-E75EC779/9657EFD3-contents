@@ -404,7 +404,7 @@ DN_EC <- as.data.frame(DN_EC)
 set.seed(3952)  # set seed to make the layout reproducible
 layout1 <- layout.fruchterman.reingold(DN_graph2,niter=500)
 #Node or Vetex Options: Size and Color
-V(DN_graph2)$size=eigen_centrality(DN_graph)/5 #because of the wide range
+V(DN_graph2)$size=(eigen_centrality(DN_graph2)/5) #because of the wide range
 V(DN_graph2)$color <- ifelse(DNA[V(DN_graph2), 2] == "Researcher", "blue", "red")
 
 #Edge Options: Color
