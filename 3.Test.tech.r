@@ -345,6 +345,8 @@ identify.targets<-function(network,test,node.ID.column.number, #input:network, t
 #YES I CAN!!!
 identify.targets(SN,betweenness,2,117,25,34554)
 
+
+identify.targets(ZN,eigen_centrality(,))
 ####################### Eigenvector Centrality ###################################
 # The eigenvector centrality measure is a way of quantifying the influence that a 
 # specific node has for example, while both of the top 2 people in terms of all
