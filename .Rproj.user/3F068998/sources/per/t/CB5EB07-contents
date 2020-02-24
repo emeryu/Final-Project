@@ -343,10 +343,35 @@ identify.targets<-function(network,test,node.ID.column.number, #input:network, t
 }
 
 #YES I CAN!!!
-identify.targets(SN,betweenness,2,117,25,34554)
+identify.targets(ZN,betweenness,2,27,4,34554)
 
+#lets try it with a new network:
+#here is an ant colony
+AN <-read_graph(paste(d.path,"weighted_network_c0ol2_day11.graphml",
+                      sep="/"),format=c("graphml"))
 
-identify.targets(ZN,eigen_centrality(,))
+identify.targets(AN,betweenness,2,131,20,343434)
+
+identify.targets(ZN,eigen_centrality,23,27,3,2242020)
+
+#I can even make another function that gives us a graph with vertex size changing by the test
+#this gives us a slightly more comprehensive view which can be nice if we want a little more
+#information on who should be immunized or whatever your quesiton is.
+identify.targets.size<-function(network,test,length,seed){     ##of nodes, #of targets, and a seed for 
+  #reproducibility
+  long.targets<-give.nodelists(test,network,length)            #use our give.nodelist function
+  layout.t3<-layout.auto(network)                              #it is important to use auto because we can use a 
+  #far greater range of networks and tests
+  set.seed(seed)                                               #the seed is purely for reproducibility
+  V(network)$color="yellow"                                      #we want a dull color for the rest of them
+  V(network)$size=betweenness(network)
+  plot(network)                                                #and finally we plot our network 
+}
+
+identify.targets.size(ZN,betweenness,
+
+identify.targets(ZN,betweenness,2,27,3,333333)
+
 ####################### Eigenvector Centrality ###################################
 # The eigenvector centrality measure is a way of quantifying the influence that a 
 # specific node has for example, while both of the top 2 people in terms of all

@@ -89,6 +89,7 @@ SN <- read_graph(paste(d.path,"weighted_network_social_songbird.graphml",
 ZN <-read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",
                       sep="/"),format=c("graphml"))
 
+
 #-----------------------------------WORKFLOW------------------------------------
 
 # In our working directory we created 4 pathways to different folders with 

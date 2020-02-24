@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1582485590705.000,
-    "dirty" : true,
+    "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "2621328067",
     "id" : "342EC11",
-    "lastKnownWriteTime" : 1582571838,
-    "last_content_update" : 1582573203762,
+    "lastKnownWriteTime" : 1582583285,
+    "last_content_update" : 1582583285952,
     "path" : "~/R/Final-Project/MainScript.R",
     "project_path" : "MainScript.R",
     "properties" : {
-        "cursorPosition" : "78,68",
-        "scrollLine" : "71"
+        "cursorPosition" : "83,0",
+        "scrollLine" : "79"
     },
     "read_only" : false,
     "read_only_alternatives" : [
