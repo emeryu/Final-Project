@@ -46,8 +46,11 @@ write.csv(SNeigen,file=paste(t.path,"Songbird Eigen Vetor Values.csv",sep="/"))
 #First we find our top 1 player as measured for Eigen Vector centrallity 
 top1ZNeigen<-ZNeigen%>%top_n(1,ZNeigen$vector)
 
-#An important note is that it is our second column we want
+#An important note is that it is our 23rd column we want
 #next we highlight those players
+#RESET SIZE OF NODES
+V(ZN)$size=15
+V(SN)$size=15
 
 LayoutZNeigen<-layout.auto(ZN)
 set.seed(2222020)
@@ -70,7 +73,7 @@ dev.off()
 
 # Songbird
 #First we find our top player
-top1SNeigen<-ZNeigen%>%top_n(1,SNeigen$vector)
+top1SNeigen<-SNeigen%>%top_n(1,SNeigen$vector)
 
 #An important note is that it is our second column we want
 #next we highlight those players
@@ -80,7 +83,7 @@ set.seed(2222020)
 
 #node options
 V(SN)$color<-"grey"
-V(SN)[top1ZNeigen[,23]]$color<-"yellow"
+V(SN)[top1SNeigen[,23]]$color<-"yellow"
 
 #Now we can plot it!
 plot(SN)
@@ -101,9 +104,9 @@ dev.off()
 #First we find our top 3% of players
 #total nodes in Zebra are 27, 3% comes out to.81, 
 #we round up to 1 player (same as last time)
-top1ZNeigen<-ZNeigenn%>%top_n(1,ZNeigen$vector)
+top1ZNeigen<-ZNeigen%>%top_n(1,ZNeigen$vector)
 
-#Again note our second column is the nodelist
+#Again note our 23rd column is the nodelist
 #next we highlight those players
 LayoutZNeigen<-layout.auto(ZN)
 set.seed(2222020)
@@ -198,61 +201,3 @@ V(SN)$color<-"grey"
 V(SN)[top12SNeigen[,23]]$color<-"yellow"
 plot(SN)
 dev.off()
-
-
-#Now that we know which nodes have high node- betweeness centrality we can look 
-#at which edges have high betweeness. This is called Girvan-Newman
-#Edge-Betweeness: Girvan-Newman - this looks at the edge that connects the most 
-#amount of people and then it removes those edges and looks at the nodes that are 
-#left. You continue till you have no more edges and from that tou can understand 
-#what are the groups of people that have more connections to themselves then other
-#people in the network. 
-GNC <- cluster_edge_betweenness(DN_graph2, weights = NULL)
-V(DN_graph2)$color <-membership(GNC) #This sets a specific colour for the nodes 
-#by different community
-DN_graph2$palette <- diverging_pal(length(GNC)) #This sets a specific color pallette 
-plot(DN_graph2, edge.arrow.size=0.25,edge.arrow.mode = "-", vertex.label = NA)
-
-#First calculate Girvan- Newman
-ZN_GN<-cluster_edge_betweenness(ZN, weights= NULL)
-
-#Now we make a dataframe to analyze the values of each node 
-ZN_GN<-as.data.frame(ZN_GN)
-
-# We can create a column that has the node ID next to each value
-ZN_GN$Nodelist<-(1:27)
-
-str(ZN_GN)
-head
-
-#HOW TO MAKE A DATAFRAME WITH THIS???
-
-
-
-# lastly we can arrange them in descending order, so we know to only highlight
-# the top IDs in the final graphing portion
-arrange(ZNbetween,-ZNbetween)
-
-#Now again with Songbirds
-#First calculated Betweeness
-SNbetween<-betweenness(SN)
-
-#Remake into a dataframe for analysis
-SNbetween<-as.data.frame(SNbetween)
-
-# We can create a column that has their node ID next to each value
-SNbetween$Nodelist<-(1:117)
-
-#Next we can arrange them in descending order
-arrange(SNbetween,-SNbetween)
-
-#Now we can write these into csvs for future reference
-
-#Zebra network
-write.csv(ZNbetween,file=paste(t.path,"Zebra Betweeness Values.csv",sep="/"))
-
-#Songbird network
-write.csv(SNbetween,file=paste(t.path,"Songbird Betweeness Values.csv",sep="/"))
-
-# Below we graph who we would immunize with specific immunization criteria
-
