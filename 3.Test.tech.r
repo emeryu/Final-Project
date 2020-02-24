@@ -297,17 +297,19 @@ dev.off()
 
 
 ################  attempts to do this with for loops and functions #####################
-#This was simpler in R than we thought it might be, however we used a lot 
+#This was simpler in R than we thought it might be, however we used a lot
 #of farmer coding. Out of curiosity I started making functions to see
 #if we can do this more simply.
 
 #We started by making a function that returns the relevant nodelist
-give.nodelists<-function(test,network1,lengthnet1){
-  layout.t1<-layout.auto(network1)
-  temp.dataframe1<-test(network1)
-  temp.dataframe1<-as.data.frame(temp.dataframe1)
-  temp.dataframe1$NodeID<-(1:lengthnet1)
-  temp.dataframe1%>%arrange(desc(temp.dataframe1))
+give.nodelists<-function(test,network1,lengthnet1){   #in order to get the correct nodelist,
+                                                      #we tell it the test we are using, the
+                                                      #network we are analyzing and the length
+                                                      #of that network (# of nodes)
+  temp.dataframe1<-test(network1)                     #first, we need to perform the test
+  temp.dataframe1<-as.data.frame(temp.dataframe1)     #then we store the results into a dataframe
+  temp.dataframe1$NodeID<-(1:lengthnet1)              #next we have to add a node ID list
+  temp.dataframe1%>%arrange(desc(temp.dataframe1))    #and lastly we arrange it in descending order
   return(temp.dataframe1)
   
 }
@@ -318,23 +320,28 @@ SND<-give.nodelists(betweenness,SN,117)
 
 #then we made a function that extracts the relevant values from that list
 top.node<-function(relevant.nodelist,n){
-  top1.t.1<-relevant.nodelist%>%top_n(n,relevant.nodelist[,1])
+  top1.t.1<-relevant.nodelist%>%top_n(n,relevant.nodelist[,1]) #take the relevant network and the # of
+                                                               #targets and use a top_n function
 }
 #it works!
 highlight<-top.node(SND,1)
 
 #and the big question
 #Can I make a function that does it all??
-identify.targets<-function(network,test,node.ID.column.number,
-                           length,number.of.targets,seed){
-  long.targets<-give.nodelists(test,network,length)
-  final.targets<-top.node(long.targets,number.of.targets)
-  layout.t2<-layout.auto(network)
-  set.seed(seed)
-  V(network)$color="grey"
-  V(network)[final.targets[,node.ID.column.number]]$color<-"yellow"
-  plot(network)
+identify.targets<-function(network,test,node.ID.column.number, #input:network, test you want to run, 
+                                                               #which column in the dataframe the ID is
+                           length,number.of.targets,seed){     ##of nodes, #of targets, and a seed for 
+                                                               #reproducibility
+  long.targets<-give.nodelists(test,network,length)            #use our give.nodelist function
+  final.targets<-top.node(long.targets,number.of.targets)      #use out top.node to find the right ones
+  layout.t2<-layout.auto(network)                              #it is important to use auto because we can use a 
+                                                               #far greater range of networks and tests
+  set.seed(seed)                                               #the seed is purely for reproducibility
+  V(network)$color="grey"                                      #we want a dull color for the rest of them
+  V(network)[final.targets[,node.ID.column.number]]$color<-"yellow"#that way the yellow of our targets pops
+  plot(network)                                                #and finally we plot our network 
 }
 
 #YES I CAN!!!
 identify.targets(SN,betweenness,2,117,25,34554)
+

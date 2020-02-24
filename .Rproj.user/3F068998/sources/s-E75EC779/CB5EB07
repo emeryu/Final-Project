@@ -4,16 +4,16 @@
     "created" : 1582483940129.000,
     "dirty" : false,
     "encoding" : "UTF-8",
-    "folds" : "258|52|300|0|\n",
-    "hash" : "2246477726",
+    "folds" : "",
+    "hash" : "0",
     "id" : "CB5EB07",
-    "lastKnownWriteTime" : 1582494116,
-    "last_content_update" : 1582494116534,
+    "lastKnownWriteTime" : 1582572595,
+    "last_content_update" : 1582572595916,
     "path" : "~/R/Final-Project/3.Test.tech.r",
     "project_path" : "3.Test.tech.r",
     "properties" : {
-        "cursorPosition" : "328,21",
-        "scrollLine" : "302"
+        "cursorPosition" : "343,0",
+        "scrollLine" : "331"
     },
     "read_only" : false,
     "read_only_alternatives" : [

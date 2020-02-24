@@ -38,12 +38,21 @@
 #------------------------------PACKAGE DOWNLOAD---------------------------------
 
 # This is a list of the package used for these analyses
-
-install.packages("igraph")
-install.packages("readr")
-install.packages("haven")
-install.packages("ggplot2")
-
+if(!require(igraph)){
+  install.packages("igraph")
+}
+if(!require(readr)){
+  install.packages("readr")
+}
+if(!require(haven)){
+  install.packages("haven")
+}
+if(!require(ggplot2)){
+  install.packages("ggplot2")
+}
+if(!require(dplyr)){
+  install.packages("dplyr")
+}
 #---------------------------------LIBRARIES-------------------------------------
 
 # Load the packages in the libraries 
