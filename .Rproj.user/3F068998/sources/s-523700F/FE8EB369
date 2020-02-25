@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "440980260",
+    "hash" : "0",
     "id" : "FE8EB369",
-    "lastKnownWriteTime" : 1582590377,
-    "last_content_update" : 1582590377486,
+    "lastKnownWriteTime" : 1582590707,
+    "last_content_update" : 1582590707,
     "path" : "~/R/Final-Project/MainScript.R",
     "project_path" : "MainScript.R",
     "properties" : {
-        "cursorPosition" : "147,0",
+        "cursorPosition" : "154,0",
         "scrollLine" : "139"
     },
     "read_only" : false,
