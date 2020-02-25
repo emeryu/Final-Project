@@ -4,17 +4,17 @@
     "created" : 1582583719151.000,
     "dirty" : false,
     "encoding" : "UTF-8",
-    "folds" : "1|80|4|0|\n5|80|6|0|\n46|51|98|0|\n99|44|254|0|\n255|52|300|0|\n407|47|452|0|\n453|56|608|0|\n",
-    "hash" : "316154989",
+    "folds" : "",
+    "hash" : "2101327926",
     "id" : "E685F634",
-    "lastKnownWriteTime" : 1582586429,
-    "last_content_update" : 1582588829185,
+    "lastKnownWriteTime" : 1582589330,
+    "last_content_update" : 1582589330997,
     "path" : "~/R/Final-Project/3. TestingTechniques.r",
     "project_path" : "3. TestingTechniques.r",
     "properties" : {
-        "cursorPosition" : "14,0",
+        "cursorPosition" : "405,0",
         "docOutlineVisible" : "1",
-        "scrollLine" : "0"
+        "scrollLine" : "392"
     },
     "read_only" : false,
     "read_only_alternatives" : [

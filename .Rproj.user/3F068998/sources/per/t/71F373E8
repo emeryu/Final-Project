@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1582589344611.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "708897455",
+    "id" : "71F373E8",
+    "lastKnownWriteTime" : 1582590329,
+    "last_content_update" : 1582590329,
+    "path" : "~/R/Final-Project/5.FinalTechniques.r",
+    "project_path" : "5.FinalTechniques.r",
+    "properties" : {
+        "cursorPosition" : "62,0",
+        "scrollLine" : "46",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

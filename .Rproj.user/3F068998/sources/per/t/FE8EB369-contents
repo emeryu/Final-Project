@@ -151,5 +151,6 @@ ZN <-read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",
 source("1. LearningTechniques.R")
 source("2. PracticingTechniques.R")
 source("3. TestingTechniques.R")
+source("5. FinalTechniques.R")
 
 #################################END MAIN SCRIPT################################

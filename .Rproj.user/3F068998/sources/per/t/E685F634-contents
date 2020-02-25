@@ -365,7 +365,8 @@ identify.targets<-function(network,test,node.ID.column.number,
 }
 
 #YES I CAN!!!
-identify.targets(ZN,betweenness,2,27,4,34554)
+identify.targets(ZN,betweenness,2,27,3,34554)
+
 
 #lets try it with a new network:
 #here is an ant colony
