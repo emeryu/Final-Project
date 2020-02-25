@@ -197,29 +197,30 @@ CDD <- degree.distribution(CN_graph2)
 
 CDD2 <- as.data.frame(CDD)
 
-
 #plot the probability as a histogram 
-qplot (DDD, data=DDD2, geom = "histogram", binwidth= 0.001, 
+hist (DDD, breaks=25,  
        ylab= "Number of Connections", 
        xlab= "Probability of Number of Connections")
 
-qplot (CDD, data=CDD2, geom = "histogram", binwidth= 0.001, 
+hist (CDD, breaks=25,  
        ylab= "Number of Connections", 
        xlab= "Probability of Number of Connections")
 
 
 #We can save the pdfs of these histograms for future reference
 pdf(file=paste(l.path,"Discussion Network Degree Distribution.pdf",sep="/"))
-qplot (DDD, data=DDD2, geom = "histogram", binwidth= 0.001, 
-       ylab= "Number of Connections", 
-       xlab= "Probability of Number of Connections")
+hist (DDD, breaks=25, 
+      ylab= "Number of Connections", 
+      xlab= "Probability of Number of Connections",
+      main= "Histogram of Probability of # of Connections")
 dev.off()
 
 #and the colleague network DD
 pdf(file=paste(l.path,"Colleague Network Degree Distribution.pdf",sep="/"))
-qplot (CDD, data=CDD2, geom = "histogram", binwidth= 0.001, 
-       ylab= "Number of Connections", 
-       xlab= "Probability of Number of Connections")
+hist (CDD, breaks=25, 
+      ylab= "Number of Connections", 
+      xlab= "Probability of Number of Connections",
+      main= "Histogram of Probability of # of Connections")
 dev.off()
 
 

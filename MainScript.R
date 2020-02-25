@@ -70,7 +70,7 @@ library(dplyr)
 working.dir <- getwd()
 
 # Create the folders we will use
-output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets","5.Final.tech")
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets")
 
 # Check to see if the folders exist in the working directory and if they don't, 
 # use the following loop. 
@@ -99,8 +99,6 @@ t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
 # Path to 4.Data.Set
 d.path <- paste(working.dir,"/",output.folders[4], "/", sep="")
 
-# Path to 5.Final.tech
-f.path <- paste(working.dir,"/",output.folders[5], "/", sep="")
 
 #--------------------------------DATA DOWLOAD-----------------------------------
 

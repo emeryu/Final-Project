@@ -61,30 +61,30 @@ dev.off()
 # Now that we know what measure we want to use, we can begin our analysis
 
 #First calculated Betweeness
-ZNbetween<-betweenness(ZN)
+ZNbetween.list<-betweenness(ZN)
 
 #Now we make a dataframe to analyze the values of each node 
-ZNbetween<-as.data.frame(ZNbetween)
+ZNbetween<-as.data.frame(ZNbetween.list)
 
 # We can create a column that has the node ID next to each value
 ZNbetween$Nodelist<-(1:27)
 
 # lastly we can arrange them in descending order, so we know to only highlight
 # the top IDs in the final graphing portion
-arrange(ZNbetween,-ZNbetween)
+arrange(ZNbetween,-ZNbetween.list)
 
 #Now again with Songbirds
 #First calculated Betweeness
-SNbetween<-betweenness(SN)
+SNbetween.list<-betweenness(SN)
 
 #Remake into a dataframe for analysis
-SNbetween<-as.data.frame(SNbetween)
+SNbetween<-as.data.frame(SNbetween.list)
 
 # We can create a column that has their node ID next to each value
 SNbetween$Nodelist<-(1:117)
 
 #Next we can arrange them in descending order
-arrange(SNbetween,-SNbetween)
+arrange(SNbetween,-SNbetween.list)
 
 #Now we can write these into csvs for future reference
 
@@ -299,6 +299,38 @@ dev.off()
 V(ZN)$size=15
 V(SN)$size=15
 
+#Additionally it may be informative to have a histogram of the results, so we made
+#those below and saved them as pdfs
+ZN.dist<-degree.distribution(ZN)
+
+hist(ZN.dist, breaks=25,
+     ylab= "Number of Connections", 
+     xlab= "Probability of Number of Connections",
+     main= "Histogram of Probability of Connections")
+
+#save as pdf
+pdf(file=paste(t.path,"Zebra Degree Distribution.pdf",sep="/"))
+hist(ZN.dist, breaks=25,
+     ylab= "Number of Connections", 
+     xlab= "Probability of Number of Connections",
+     main= "Histogram of Probability of Connections")
+dev.off()
+
+#and again for songbirds
+
+SN.dist<-degree.distribution(SN)
+hist(SN.dist, breaks=25,
+     ylab= "Number of Connections", 
+     xlab= "Probability of Number of Connections",
+     main= "Histogram of Probability of Connections")
+
+#and save as pdf
+pdf(file=paste(t.path,"Songbird Degree Distribution.pdf",sep="/"))
+hist(SN.dist, breaks=25,
+     ylab= "Number of Connections", 
+     xlab= "Probability of Number of Connections",
+     main= "Histogram of Probability of Connections")
+dev.off()
 ################  attempts to do this with functions #####################
 #This was simpler in R than we thought it might be, however we used a lot
 #of farmer coding. Out of curiosity I started making functions to see

@@ -165,16 +165,19 @@ Degree.dist <- degree.distribution(sample)
 Degree.dist2 <- as.data.frame(Degree.dist)
 
 #plot as a histogram 
-qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005, 
+hist(Degree.dist, breaks=25, 
        ylab= "Number of Connections", 
-       xlab= "Probability of Number of Connections")
+       xlab= "Probability of Number of Connections",
+       main= "Histogram of Probability of Connections")
 
 #we can save this for future reference
 pdf(file=paste(p.path,"Sample Degree Distribution.pdf",sep="/"))
-qplot (Degree.dist, data=Degree.dist2, geom = "histogram", binwidth= 0.005, 
-       ylab= "Number of Connections", 
-       xlab= "Probability of Number of Connections")
+hist(Degree.dist, breaks=25, 
+     ylab= "Number of Connections", 
+     xlab= "Probability of Number of Connections",
+     main= "Histogram of Probability of Connections")
 dev.off()
+
 #clustering coefficients 
 # Transitivity measures how "cliquey" the network is. For example if "A" and "B" 
 # and "A" and "C" are connected, high transitifity would be if "B" and "C"
