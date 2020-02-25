@@ -63,4 +63,4 @@ NG<-read_graph(paste(d.path,"weighted_network_ant_Lauren_colony1_day7.graphml",s
 plot(NG)
 
 immunize.targets(NG,20)
-immunize.size(NG,100)
+immunize.size(NG,10)
