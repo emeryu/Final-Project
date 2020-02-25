@@ -295,51 +295,73 @@ V(SN)$size=betweenness(SN)/45
 plot(SN)
 dev.off()
 
+#After messing with sizes of networks, it is important to reset size to 15
+V(ZN)$size=15
+V(SN)$size=15
 
-################  attempts to do this with for loops and functions #####################
+################  attempts to do this with functions #####################
 #This was simpler in R than we thought it might be, however we used a lot
 #of farmer coding. Out of curiosity I started making functions to see
 #if we can do this more simply.
 
 #We started by making a function that returns the relevant nodelist
-give.nodelists<-function(test,network1,lengthnet1){   #in order to get the correct nodelist,
-                                                      #we tell it the test we are using, the
-                                                      #network we are analyzing and the length
-                                                      #of that network (# of nodes)
-  temp.dataframe1<-test(network1)                     #first, we need to perform the test
-  temp.dataframe1<-as.data.frame(temp.dataframe1)     #then we store the results into a dataframe
-  temp.dataframe1$NodeID<-(1:lengthnet1)              #next we have to add a node ID list
-  temp.dataframe1%>%arrange(desc(temp.dataframe1))    #and lastly we arrange it in descending order
+     #EXPLANATION OF FUNCTION
+#input:test we are using,network we are testing, and the number of nodes in the network
+#first, we need to perform the test
+#then we store the results into a dataframe
+#next we have to add a node ID list
+#and lastly we arrange it in descending order
+
+give.nodelists<-function(test,network,lengthnet1){ 
+  temp.dataframe1<-test(network)                   
+  temp.dataframe1<-as.data.frame(temp.dataframe1)   
+  temp.dataframe1$NodeID<-(1:lengthnet1)            
+  temp.dataframe1%>%arrange(desc(temp.dataframe1))  
   return(temp.dataframe1)
-  
 }
-#It works!
+
+# We can then test it
 ZND<-give.nodelists(betweenness,ZN,27)
 SND<-give.nodelists(betweenness,SN,117)
 
+#IT WORKS!!!
+head(ZND)
+head(SND)
+
 
 #then we made a function that extracts the relevant values from that list
+   #EXPLANATION OF FUNCTION
+#take the relevant network and the # of
+#targets and use a top_n function
 top.node<-function(relevant.nodelist,n){
-  top1.t.1<-relevant.nodelist%>%top_n(n,relevant.nodelist[,1]) #take the relevant network and the # of
-                                                               #targets and use a top_n function
+  top1.t.1<-relevant.nodelist%>%top_n(n,relevant.nodelist[,1])
 }
-#it works!
+#again we test it
 highlight<-top.node(SND,1)
+
+#It also works!!
+head(highlight)
+
 
 #and the big question
 #Can I make a function that does it all??
-identify.targets<-function(network,test,node.ID.column.number, #input:network, test you want to run, 
-                                                               #which column in the dataframe the ID is
-                           length,number.of.targets,seed){     ##of nodes, #of targets, and a seed for 
-                                                               #reproducibility
-  long.targets<-give.nodelists(test,network,length)            #use our give.nodelist function
-  final.targets<-top.node(long.targets,number.of.targets)      #use out top.node to find the right ones
-  layout.t2<-layout.auto(network)                              #it is important to use auto because we can use a 
-                                                               #far greater range of networks and tests
-  set.seed(seed)                                               #the seed is purely for reproducibility
-  V(network)$color="grey"                                      #we want a dull color for the rest of them
-  V(network)[final.targets[,node.ID.column.number]]$color<-"yellow"#that way the yellow of our targets pops
-  plot(network)                                                #and finally we plot our network 
+     #EXPLANATION OF FUNCTION
+#input:network, test you want to run, which column in the dataframe the ID is
+##of nodes, #of targets, and a seed for reproducibility
+#use our give.nodelist function use out top.node to find the right ones
+#it is important to use auto because we can use a far greater range of networks and tests
+#the seed is purely for reproducibility
+#we want a dull color for the rest of them that way the yellow of our targets pops
+#and finally we plot our network 
+identify.targets<-function(network,test,node.ID.column.number, 
+                           length,number.of.targets,seed){     
+  long.targets<-give.nodelists(test,network,length)            
+  final.targets<-top.node(long.targets,number.of.targets)      
+  layout.t2<-layout.auto(network)                               
+  set.seed(seed)                                               
+  V(network)$color="grey"                                      
+  V(network)[final.targets[,node.ID.column.number]]$color<-"yellow"
+  plot(network)                                                
 }
 
 #YES I CAN!!!
@@ -347,30 +369,41 @@ identify.targets(ZN,betweenness,2,27,4,34554)
 
 #lets try it with a new network:
 #here is an ant colony
-AN <-read_graph(paste(d.path,"weighted_network_c0ol2_day11.graphml",
+AN <-read_graph(paste(d.path,"weighted_network_col2_day11.graphml",
                       sep="/"),format=c("graphml"))
 
 identify.targets(AN,betweenness,2,131,20,343434)
 
-identify.targets(ZN,eigen_centrality,23,27,3,2242020)
+#after a little more testing, this seems to only work with betweenness, but thats okay as thats
+#what we are mainly interested in. 
+#we can still do the other analysis a little more farmer style, an I could make a function that 
+#does them as well, but I don't think it's worth our time.
 
-#I can even make another function that gives us a graph with vertex size changing by the test
+#I will however adjust it in 5.Final.tech to reflect only betweenness
+
+#out of curiosity:
+#Can we make another function that gives us a graph with vertex size changing by the test
 #this gives us a slightly more comprehensive view which can be nice if we want a little more
 #information on who should be immunized or whatever your quesiton is.
-identify.targets.size<-function(network,test,length,seed){     ##of nodes, #of targets, and a seed for 
-  #reproducibility
-  long.targets<-give.nodelists(test,network,length)            #use our give.nodelist function
-  layout.t3<-layout.auto(network)                              #it is important to use auto because we can use a 
-  #far greater range of networks and tests
-  set.seed(seed)                                               #the seed is purely for reproducibility
-  V(network)$color="yellow"                                      #we want a dull color for the rest of them
-  V(network)$size=betweenness(network)
-  plot(network)                                                #and finally we plot our network 
+    #EXPLANATION OF FUNCTION:
+#Big change in input, no target number to input
+#only other big change is there is no top.node function use and size is set to =test(network)
+
+identify.targets.size<-function(network,test,length,seed){     
+                                                               
+  long.targets<-give.nodelists(test,network,length)            
+  layout.t3<-layout.auto(network)                               
+  set.seed(seed)                                               
+  V(network)$color="yellow"                                    
+  V(network)$size=test(network)
+  plot(network)                                                
 }
 
-identify.targets.size(ZN,betweenness,
+identify.targets.size(ZN,betweenness,27,33333)
 
-identify.targets(ZN,betweenness,2,27,3,333333)
+identify.targets.size(AN,betweenness,131,3435343)
+#You can see in this last one it is definitely not perfect, perhaps a default value setting 
+#could come in handy, we will experiment in 5.Final.tech
 
 ####################### Eigenvector Centrality ###################################
 # The eigenvector centrality measure is a way of quantifying the influence that a 
@@ -419,6 +452,9 @@ write.csv(SNeigen,file=paste(t.path,"Songbird Eigen Vetor Values.csv",sep="/"))
 # regraph our networks with them highlighted in a different color. 
 
 ############################## Final Graphs Eigenvector ####################################
+#RESET SIZE OF NODES
+V(ZN)$size=15
+V(SN)$size=15
 
 # Graphs of 1 player
 
@@ -426,17 +462,15 @@ write.csv(SNeigen,file=paste(t.path,"Songbird Eigen Vetor Values.csv",sep="/"))
 #First we find our top 1 player as measured for Eigen Vector centrallity 
 top1ZNeigen<-ZNeigen%>%top_n(1,ZNeigen$vector)
 
-#An important note is that it is our 23rd column we want
-#next we highlight those players
-#RESET SIZE OF NODES
-V(ZN)$size=15
-V(SN)$size=15
-
+#set our layout and seed
 LayoutZNeigen<-layout.auto(ZN)
 set.seed(2222020)
 
 #node options
 V(ZN)$color<-"grey"
+
+#An important note is that it is our 23rd column we want
+#next we highlight those players
 V(ZN)[top1ZNeigen[,23]]$color<-"yellow"
 
 #Now we can plot it!
@@ -454,9 +488,6 @@ dev.off()
 # Songbird
 #First we find our top player
 top1SNeigen<-SNeigen%>%top_n(1,SNeigen$vector)
-
-#An important note is that it is our second column we want
-#next we highlight those players
 
 LayoutSNeigen<-layout.auto(SN)
 set.seed(2222020)
@@ -486,8 +517,7 @@ dev.off()
 #we round up to 1 player (same as last time)
 top1ZNeigen<-ZNeigen%>%top_n(1,ZNeigen$vector)
 
-#Again note our 23rd column is the nodelist
-#next we highlight those players
+
 LayoutZNeigen<-layout.auto(ZN)
 set.seed(2222020)
 V(ZN)$color<-"grey"
@@ -511,8 +541,6 @@ dev.off()
 
 top4SNeigen<-SNeigen%>%top_n(4,SNeigen$vector)
 
-#Again note our second column is the nodelist
-#next we highlight those players
 LayoutSNeigen<-layout.auto(SN)
 set.seed(2222020)
 V(SN)$color<-"grey"
@@ -520,11 +548,11 @@ V(SN)[top4SNeigen[,23]]$color<-"yellow"
 plot(SN)
 
 #save as pdf
-pdf(file=paste(t.path,"Songbird top 3.pdf",sep="/"))
+pdf(file=paste(t.path,"Songbird top 3 Eigen.pdf",sep="/"))
 LayoutSN<-layout.auto(SN)
 set.seed(2222020)
 V(SN)$color<-"grey"
-V(SN)[top4SN[,23]]$color<-"yellow"
+V(SN)[top4SNeigen[,23]]$color<-"yellow"
 plot(SN)
 dev.off()
 
@@ -538,16 +566,12 @@ dev.off()
 top3ZNeigen<-ZNeigen%>%top_n(3,ZNeigen$vector)
 
 
-#Again note our second column is the nodelist
-#next we highlight those players
 LayoutZNeigen<-layout.auto(ZN)
 set.seed(2222020)
 V(ZN)$color<-"grey"
 V(ZN)[top3ZNeigen[,23]]$color<-"yellow"
 plot(ZN)
 
-#Here we have 4 nodes that are teh top 10 percent because there is a tie between 
-#2 nodes and therefore there are not 3, but 4
 
 #Save as a pdf
 pdf(file=paste(t.path,"Zebra top 10 Eigen.pdf",sep="/"))
@@ -581,3 +605,4 @@ V(SN)$color<-"grey"
 V(SN)[top12SNeigen[,23]]$color<-"yellow"
 plot(SN)
 dev.off()
+

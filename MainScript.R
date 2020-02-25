@@ -64,10 +64,45 @@ library(haven)
 library(ggplot2)
 library(dplyr)
 
-#--------------------------------DATA DOWLOAD-----------------------------------
+#------------------------------BUILD DIRECTORY----------------------------------
 #Set our working directory 
 
 working.dir <- getwd()
+
+# Create the folders we will use
+output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets","5.Final.tech")
+
+# Check to see if the folders exist in the working directory and if they don't, 
+# use the following loop. 
+# The following loop checks the output.folders list and checks to see 
+# if the folders exist in the working directory. If they don't it will create 
+# them. 
+
+# Make the folders using this loop code 
+for(i in 1:length(output.folders)) 
+  if(file.exists(output.folders[i]) == FALSE) 
+    dir.create(output.folders[i])
+
+#-------- Pathways----------
+
+# The following is a directory of the pathways to each of our output folders
+
+# Path to 1.Learn.tech
+l.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
+
+# Path to 2.Pract.tech
+p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
+
+# Path to 3.Test.tech
+t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
+
+# Path to 4.Data.Set
+d.path <- paste(working.dir,"/",output.folders[4], "/", sep="")
+
+# Path to 5.Final.tech
+f.path <- paste(working.dir,"/",output.folders[5], "/", sep="")
+
+#--------------------------------DATA DOWLOAD-----------------------------------
 
 # The following are the raw data files used in the practicing techniques section 
 # of this analysis which was found from a youtube channel
@@ -111,40 +146,10 @@ ZN <-read_graph(paste(d.path,"UNweighted_zebra_interaction.graphml",
 #                 (This folder contains the raw data used in both our learning 
 #                 techniques and our testing techniques sections)
 
-output.folders <- c("1.Learn.tech","2.Pract.tech","3.Test.tech", "4. Data.sets")
-
-# Check to see if the folders exist in the working directory and if they don't, 
-# use the following loop. 
-# The following loop checks the output.folders list and checks to see 
-# if the folders exist in the working directory. If they don't it will create 
-# them. 
-
-# Make the folders using this loop code 
-for(i in 1:length(output.folders)) 
-  if(file.exists(output.folders[i]) == FALSE) 
-    dir.create(output.folders[i])
-
-#-------- Pathways----------
-
-# The following is a directory of the pathways to each of our output folders
-
-# Path to 1.Learn.tech
-l.path <- paste(working.dir,"/",output.folders[1], "/", sep="")
-
-# Path to 2.Pract.tech
-p.path <- paste(working.dir,"/",output.folders[2], "/", sep="")
-
-# Path to 3.Test.tech
-t.path <- paste(working.dir,"/",output.folders[3], "/", sep="")
-
-# Path to 4.Data.Set
-d.path<- paste(working.dir,"/",output.folders[4], "/", sep="")
-
-
 #-----------Source the other scripts----------- 
 
 source("1. LearningTechniques.R")
 source("2. PracticingTechniques.R")
-
+source("3. TestingTechniques.R")
 
 #################################END MAIN SCRIPT################################
