@@ -54,6 +54,15 @@ dev.off()
 # 3% of players
 # and 10% of players
 
+#First lets look at how quickly a disease may move through these networks.
+#We can use the average path lengths between the networks to get an idea of how quickly
+#a disease may move through the network.
+
+mean_distance(ZN)
+mean_distance(SN)
+
+
+
 # The metric that seems like it is most likely to shed light on this is Betweeness
 # Centrality. This metric gives us a value for each node of how often that node is
 # used as a bridge between other nodes. We have a formula in our document.

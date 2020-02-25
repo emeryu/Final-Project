@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1582658567203.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A54CC83D",
+    "lastKnownWriteTime" : 1582596464,
+    "last_content_update" : 1582658737869,
+    "path" : "~/R/Final-Project/1. LearningTechniques.R",
+    "project_path" : "1. LearningTechniques.R",
+    "properties" : {
+        "cursorPosition" : "210,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

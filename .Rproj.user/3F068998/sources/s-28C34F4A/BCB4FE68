@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1582658664775.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "BCB4FE68",
+    "lastKnownWriteTime" : 1582303572,
+    "last_content_update" : 1582303572,
+    "path" : "~/R/SSRI Network Tutorial Materials/SSRI_Network Visualization Script_1.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "231,4",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
